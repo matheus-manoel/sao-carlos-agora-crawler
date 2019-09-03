@@ -5,8 +5,8 @@ from newsplease import NewsPlease
 
 def get_match_result(keywords, article):
     return {
-        'title_match': [keyword for keyword in keywords if keyword in article.title],
-        'body_matches': [keyword for keyword in keywords if keyword in article.text]
+        'title_match': [keyword.lower() for keyword in keywords if keyword in article.title.lower()],
+        'body_matches': [keyword.lower() for keyword in keywords if keyword in article.text.lower()]
     }
 
 def get_links_and_dates(soupfied_last_news):
