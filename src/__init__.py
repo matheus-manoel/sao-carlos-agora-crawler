@@ -1,10 +1,12 @@
 from datetime import date
 
+from newsplease import NewsPlease
+
 
 def get_match_result(keywords, article):
     return {
-        'title_match': any([keyword for keyword in keywords if keyword in article.title]),
-        'body_matches': any([keyword for keyword in keywords if keyword in article.text])
+        'title_match': [keyword for keyword in keywords if keyword in article.title],
+        'body_matches': [keyword for keyword in keywords if keyword in article.text]
     }
 
 def get_links_and_dates(soupfied_last_news):
@@ -31,3 +33,6 @@ def filter_links_by_date(news_and_dates, date=date):
         k: v for k, v in news_and_dates.items()
         if _parse_date(v) == date.today()
     }
+
+def get_articles(news_and_dates, np=NewsPlease):
+    return [np.from_url(link) for link in news_and_dates]
